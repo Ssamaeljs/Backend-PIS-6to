@@ -33,7 +33,8 @@
         {
           "model":"peticion_token",
           "urls": [
-            "/listar/peticion_token"
+            "/listar/peticion_token",
+            "/listar/peticion_token/:external_token"
           ]
         }
       ]
@@ -51,6 +52,35 @@
         {
           "model":"cuenta",
           "urls": [
+          ]
+        },
+        {
+          "model":"dispositivo",
+          "urls": [
+          ]
+        },
+        {
+          "model":"medicion",
+          "urls": [
+          ]
+        },
+        {
+          "model":"peticion_token",
+          "urls": [
+          ]
+        }
+      ]
+    },{
+      "type":"post_without_token",
+      "models": [
+        {
+          "model":"persona",
+          "urls": [
+          ]
+        },
+        {
+          "model":"cuenta",
+          "urls": [
             "/iniciar_sesion"
           ]
         },
@@ -59,7 +89,6 @@
           "urls": [
             "/guardar/dispositivo",
             "/guardar/dispositivo/:external_dispositivo"
-          
           ]
         },
         {
@@ -67,14 +96,13 @@
           "urls": [
             "/guardar/medicion",
             "/guardar/medicion/:external_medicion"
-          
           ]
         },
         {
           "model":"peticion_token",
           "urls": [
             "/guardar/peticion_token",
-            "/guardar/peticion_token/:external_peticion_token"
+            "/guardar/peticion_token/:external_token"
           ]
         }
       ]

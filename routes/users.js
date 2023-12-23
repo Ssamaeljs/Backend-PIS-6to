@@ -9,11 +9,20 @@ const { authenticateToken } = require("./assets/middleware");
 apiConfig.forEach((route) => {
   const { type, models } = route;
   switch (type) {
+    case "post_without_token":
+      models.forEach((model) => {
+        model.urls.forEach((url) => {
+          router.post(url, (req, res) => {
+            userService.post_without_token(req, res, model.model);
+          });
+        });
+      });
+      break;
     case "get":
       models.forEach((model) => {
         model.urls.forEach((url) => {
           router.get(url, authenticateToken, (req, res) => {
-            userService.listar(req, res, model.model);
+            userService.get(req, res, model.model);
           });
         });
       });
@@ -21,12 +30,13 @@ apiConfig.forEach((route) => {
     case "post":
       models.forEach((model) => {
         model.urls.forEach((url) => {
-          router.post(url, (req, res) => {
-            userService.guardar(req, res, model.model);
+          router.post(url, authenticateToken, (req, res) => {
+            userService.post(req, res, model.model);
           });
         });
       });
       break;
+
     default:
       break;
   }

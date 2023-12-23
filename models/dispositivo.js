@@ -15,8 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "0",
       },
       estado: { type: DataTypes.BOOLEAN, defaultValue: true },
-      correo: { type: DataTypes.STRING(50), allowNull: false, unique: true },
-      clave: { type: DataTypes.STRING(150), allowNull: false },
     },
     {
       freezeTableName: true,
@@ -24,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   dispositivo.associate = function (models) {
-    dispositivo.hasMany(models.medicion, { foreignKey: "id_dispositivo" });
+    dispositivo.hasMany(models.medicion, {
+      foreignKey: "id_dispositivo",
+      as: "medicion",
+    });
   };
 
   return dispositivo;

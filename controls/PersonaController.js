@@ -82,7 +82,7 @@ class UserController {
         cuentaAux.estado = req.body.estado;
         personaAux.external_id = uuid.v4();
 
-        personaAux.save();
+        await personaAux.save();
         await cuentaAux.save();
 
         return res.status(200).json({

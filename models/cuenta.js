@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
 
   cuenta.associate = function (models) {
     cuenta.belongsTo(models.persona, { foreignKey: "id_persona" });
-    cuenta.hasMany(models.peticion_token, { foreignKey: "id_cuenta" });
+    cuenta.hasMany(models.peticion_token, {
+      foreignKey: "id_cuenta",
+      as: "peticion_token",
+    });
   };
 
   return cuenta;
