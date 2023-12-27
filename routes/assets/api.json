@@ -18,8 +18,6 @@
         {
           "model":"dispositivo",
           "urls": [
-            "/listar/dispositivo",
-            "/listar/dispositivo/:external_dispositivo"
           ]
         },
         {
@@ -45,8 +43,6 @@
         {
           "model":"persona",
           "urls": [
-            "/guardar/persona",
-            "/guardar/persona/:external_persona"
           ]
         },
         {
@@ -76,6 +72,8 @@
         {
           "model":"persona",
           "urls": [
+            "/guardar/persona",
+            "/guardar/persona/:external_persona"
           ]
         },
         {
@@ -103,6 +101,42 @@
           "urls": [
             "/guardar/peticion_token",
             "/guardar/peticion_token/:external_token"
+          ]
+        }
+      ]
+    },    {
+      "type": "get_without_token",
+      "models": [
+        {
+          "model":"persona",
+          "urls": [
+          ]
+        },
+        {
+          "model":"cuenta",
+          "urls": [
+          ]
+        },
+        {
+          "model":"dispositivo",
+          "urls": [
+            "/listar/dispositivo",
+            "/listar/dispositivo/:external_dispositivo"
+          ]
+        },
+        {
+          "model":"medicion",
+          "urls": [
+            "/listar/medicion",
+            "/listar/medicion/:external_medicion"
+          
+          ]
+        },
+        {
+          "model":"peticion_token",
+          "urls": [
+            "/listar/peticion_token",
+            "/listar/peticion_token/:external_token"
           ]
         }
       ]

@@ -4,7 +4,7 @@ const userService = require("../services/UserService");
 //const adminService = require("")
 
 const apiConfig = require("./assets/api.json");
-const { authenticateToken } = require("./assets/middleware");
+const { authenticateToken, authorize } = require("./assets/middleware");
 
 apiConfig.forEach((route) => {
   const { type, models } = route;
@@ -14,6 +14,15 @@ apiConfig.forEach((route) => {
         model.urls.forEach((url) => {
           router.post(url, (req, res) => {
             userService.post_without_token(req, res, model.model);
+          });
+        });
+      });
+      break;
+    case "get_without_token":
+      models.forEach((model) => {
+        model.urls.forEach((url) => {
+          router.get(url, (req, res) => {
+            userService.get(req, res, model.model);
           });
         });
       });

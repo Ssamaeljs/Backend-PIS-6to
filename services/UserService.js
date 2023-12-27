@@ -9,7 +9,6 @@ class Services {
   post(req, res, model) {
     switch (model) {
       case "persona":
-        UserController.guardar(req, res);
         break;
       case "cuenta":
         break;
@@ -48,6 +47,7 @@ class Services {
   post_without_token(req, res, model) {
     switch (model) {
       case "persona":
+        UserController.guardar(req, res);
         break;
       case "cuenta":
         CuentaController.login(req, res);
