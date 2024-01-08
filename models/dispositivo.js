@@ -5,14 +5,14 @@ module.exports = (sequelize, DataTypes) => {
       external_id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
       identificador: { type: DataTypes.INTEGER, allowNull: false },
       latitud: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.FLOAT,
         allowNull: false,
-        defaultValue: "0",
+        defaultValue: 0.0,
       },
       longitud: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.FLOAT,
         allowNull: false,
-        defaultValue: "0",
+        defaultValue: 0.0,
       },
       estado: { type: DataTypes.BOOLEAN, defaultValue: true },
     },
