@@ -42,7 +42,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 const authorize = (req, res, next) => {
-  const api_key = req.headers["x-api-key"];
+  const api_key = req.headers["api-key"];
   if (!api_key) {
     return res.status(401).json({
       msg: "Api key no proporcionado.",

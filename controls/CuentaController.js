@@ -27,20 +27,6 @@ class CuentaController {
           code: 400,
         });
 
-      switch (cuentaAux.estado) {
-        case "RECHAZADO":
-          return res.status(400).json({
-            msg: "Cuenta Rechazada",
-            code: 400,
-          });
-
-        case "EN ESPERA":
-          return res.status(400).json({
-            msg: "Cuenta no activa",
-            code: 400,
-          });
-      }
-
       var esClaveValida = function (clave, claveUser) {
         return bcrypt.compareSync(claveUser, clave);
       };
