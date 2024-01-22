@@ -1,29 +1,28 @@
 [
   {
-    "urlBase": "http://localhost:3000//api"
+    "urlBase": "http://localhost:3000/api"
   },
   {
     "type": "get",
     "models": [
       {
         "model": "persona",
-        "urls": []
-      },
-      {
-        "model": "cuenta",
         "urls": [
-          "/listar/cuenta"
+          "/listar/persona",
+          "/listar/persona/:external_persona"
         ]
       },
       {
         "model": "dispositivo",
-        "urls": []
+        "urls": [
+          "/listar/dispositivo/:external_dispositivo"
+        ]
       },
       {
         "model": "medicion",
         "urls": [
           "/listar/medicion",
-          "/listar/medicion/:external_medicion"
+          "/listar/medicion/:external_dispositivo"
         ]
       },
       {
@@ -40,23 +39,10 @@
     "models": [
       {
         "model": "persona",
-        "urls": []
-      },
-      {
-        "model": "cuenta",
-        "urls": []
-      },
-      {
-        "model": "dispositivo",
-        "urls": []
-      },
-      {
-        "model": "medicion",
-        "urls": []
-      },
-      {
-        "model": "peticion_token",
-        "urls": []
+        "urls": [
+          "/guardar/persona",
+          "/guardar/persona/:external_persona"
+        ]
       }
     ]
   },
@@ -66,8 +52,7 @@
       {
         "model": "persona",
         "urls": [
-          "/guardar/persona",
-          "/guardar/persona/:external_persona"
+          "/registrarse"
         ]
       },
       {
@@ -79,22 +64,13 @@
       {
         "model": "dispositivo",
         "urls": [
-          "/guardar/dispositivo",
-          "/guardar/dispositivo/:external_dispositivo"
+          "/guardar/dispositivo"
         ]
       },
       {
         "model": "medicion",
         "urls": [
-          "/guardar/medicion",
-          "/guardar/medicion/:external_medicion"
-        ]
-      },
-      {
-        "model": "peticion_token",
-        "urls": [
-          "/guardar/peticion_token",
-          "/guardar/peticion_token/:external_token"
+          "/guardar/medicion"
         ]
       }
     ]
@@ -104,10 +80,7 @@
     "models": [
       {
         "model": "persona",
-        "urls": [
-          "/listar/persona",
-          "/listar/persona/:external_persona"
-        ]
+        "urls": []
       },
       {
         "model": "cuenta",
@@ -116,23 +89,16 @@
       {
         "model": "dispositivo",
         "urls": [
-          "/listar/dispositivo",
-          "/listar/dispositivo/:external_dispositivo"
+          "/listar/dispositivo"
         ]
       },
       {
         "model": "medicion",
-        "urls": [
-          "/listar/medicion",
-          "/listar/medicion/:external_medicion"
-        ]
+        "urls": []
       },
       {
         "model": "peticion_token",
-        "urls": [
-          "/listar/peticion_token",
-          "/listar/peticion_token/:external_token"
-        ]
+        "urls": []
       }
     ]
   }

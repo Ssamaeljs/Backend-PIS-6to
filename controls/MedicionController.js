@@ -46,6 +46,7 @@ class MedicionController {
           info: data,
         });
       } else {
+        console.log(req.params.external_medicion);
         const medicionAux = await medicion.findOne({
           where: {
             external_id: req.params.external_medicion,
@@ -83,7 +84,7 @@ class MedicionController {
   async listar(req, res) {
     try {
       var lista;
-      if (!req.params.external_medicion) {
+      if (!req.params.external_dispositivo) {
         lista = await medicion.findAll({
           include: [
             {
@@ -93,9 +94,22 @@ class MedicionController {
           ],
         });
       } else {
-        lista = await medicion.findOne({
+        console.log(req.params.external_dispositivo);
+        const dispositivoAux = await dispositivo.findOne({
           where: {
-            external_id: req.params.external_medicion,
+            external_id: req.params.external_dispositivo,
+          },
+        });
+
+        if (!dispositivoAux) {
+          return res.status(404).json({
+            msg: "El dispositivo no existe",
+            code: 404,
+          });
+        }
+        lista = await medicion.findAll({
+          where: {
+            id_dispositivo: dispositivoAux.id,
           },
           include: [
             {

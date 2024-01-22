@@ -22,6 +22,7 @@ class DispositivoController {
           identificador: req.body.identificador,
           latitud: req.body.latitud,
           longitud: req.body.longitud,
+          estado: req.body.estado,
           medicion: {
             uv: req.body.uv,
             fecha: req.body.fecha,
@@ -64,11 +65,8 @@ class DispositivoController {
         dispositivoAux.identificador = req.body.identificador;
         dispositivoAux.latitud = req.body.latitud;
         dispositivoAux.longitud = req.body.longitud;
+        dispositivoAux.estado = req.body.estado;
         dispositivoAux.external_id = uuid.v4();
-        medicionAux.uv = req.body.uv;
-        medicionAux.fecha = req.body.fecha;
-
-        await medicionAux.save();
         await dispositivoAux.save();
         return res.status(200).json({
           msg: "Se han modificado los datos del dispositivo!",

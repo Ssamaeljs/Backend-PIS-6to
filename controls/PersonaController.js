@@ -39,6 +39,9 @@ class UserController {
             rol: req.body.rol,
           },
         };
+        if (data.cuenta.rol === "ADMINISTRADOR") {
+          data.cuenta.estado = "ACEPTADO";
+        }
         data.external_id = uuid.v4();
         await persona.create(data, {
           include: [
@@ -116,7 +119,7 @@ class UserController {
           include: {
             model: cuenta,
             as: "cuenta",
-            attributes: ["correo", "estado", "rol", "clave"],
+            attributes: ["correo", "estado", "rol", "clave", "external_id"],
           },
         });
       } else {
@@ -135,7 +138,7 @@ class UserController {
           include: {
             model: cuenta,
             as: "cuenta",
-            attributes: ["correo", "estado", "rol", "clave"],
+            attributes: ["correo", "estado", "rol", "clave", "external_id"],
           },
         });
       }

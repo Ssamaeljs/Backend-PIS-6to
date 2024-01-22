@@ -42,7 +42,6 @@ class TokenController {
             code: 404,
           });
         }
-        var id_cuenta;
         if (req.body.external_cuenta) {
           var cuentaAux = await cuenta.findOne({
             where: {
@@ -55,12 +54,12 @@ class TokenController {
               code: 404,
             });
           }
-          id_cuenta = cuentaAux.id;
+          cuentaAux.estado = "ACEPTADO";
+          cuentaAux.id_token = tokenAux.id;
+          await cuentaAux.save();
         }
         tokenAux.habilitado = req.body.habilitado;
         tokenAux.nro_peticiones = req.body.nro_peticiones;
-        tokenAux.id_cuenta = id_cuenta;
-        tokenAux.external_id = uuid.v4();
 
         await tokenAux.save();
         await transaction.commit();
@@ -87,6 +86,7 @@ class TokenController {
         lista = await token.findAll({
           include: {
             model: cuenta,
+            as: "cuenta",
             attributes: ["correo", "estado", "rol", "clave"],
           },
         });
@@ -97,6 +97,7 @@ class TokenController {
           },
           include: {
             model: cuenta,
+            as: "cuenta",
             attributes: ["correo", "estado", "rol", "clave"],
           },
         });

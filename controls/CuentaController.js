@@ -54,11 +54,15 @@ class CuentaController {
         info: {
           token: token,
           user: {
-            correo: cuentaAux.correo,
             nombres: cuentaAux.persona.nombres,
             apellidos: cuentaAux.persona.apellidos,
-            user: cuentaAux.persona,
+            external_persona: cuentaAux.persona.external_id,
+            fecha_nacimiento: cuentaAux.persona.fecha_nacimiento,
+            institucion: cuentaAux.persona.institucion,
+            cargo: cuentaAux.persona.cargo,
+            correo: cuentaAux.correo,
             rol: cuentaAux.rol,
+            external_cuenta: cuentaAux.external_id,
           },
         },
         code: 200,
