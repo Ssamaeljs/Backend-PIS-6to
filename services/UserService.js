@@ -14,10 +14,12 @@ class Services {
       case "cuenta":
         break;
       case "dispositivo":
+        DeviceController.guardar(req, res);
         break;
       case "medicion":
         break;
       case "peticion_token":
+        TokenController.guardar(req, res);
         break;
       default:
         break;
