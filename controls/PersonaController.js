@@ -27,6 +27,12 @@ class UserController {
         const claveHash = (clave) => {
           return bcrypt.hashSync(clave, bcrypt.genSaltSync(saltRounds), null);
         };
+        var description_pdf;
+        if (!req.file) {
+          description_pdf = "No se ha subido el archivo de la solicitud";
+        } else {
+          description_pdf = req.file.filename;
+        }
         const data = {
           nombres: req.body.nombres,
           apellidos: req.body.apellidos,
@@ -38,15 +44,11 @@ class UserController {
             clave: claveHash(req.body.clave),
             rol: req.body.rol,
             description: req.body.description,
-            description_pdf: req.file.filename,
+            description_pdf: description_pdf,
           },
         };
         if (!data.cuenta.description) {
           data.cuenta.description = "No se ha subido descripción";
-        }
-        if (!data.cuenta.description_pdf) {
-          data.cuenta.description_pdf =
-            "No se ha subido el archivo de la solicitud";
         }
         if (
           data.cuenta.description &&
