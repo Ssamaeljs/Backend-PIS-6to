@@ -47,6 +47,15 @@ class Services {
     }
   }
 
+  delete(req, res, model) {
+    switch (model) {
+      case "persona":
+        UserController.eliminar(req, res);
+        break;
+      default:
+        break;
+    }
+  }
   post_without_token(req, res, model) {
     switch (model) {
       case "persona":

@@ -65,7 +65,8 @@
       {
         "model": "persona",
         "urls": [
-          "/registrarse"
+          "/registrarse",
+          "/editar_perfil/:external_persona"
         ]
       },
       {
@@ -112,6 +113,17 @@
       {
         "model": "peticion_token",
         "urls": []
+      }
+    ]
+  },
+  {
+    "type": "delete",
+    "models": [
+      {
+        "model": "persona",
+        "urls": [
+          "/eliminar/persona/:external_persona"
+        ]
       }
     ]
   }

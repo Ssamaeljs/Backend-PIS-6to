@@ -45,8 +45,6 @@ class DispositivoController {
           code: 200,
         });
       } else {
-        console.log("entro a editar");
-        console.log(req.params.external_dispositivo);
         const dispositivoAux = await dispositivo.findOne({
           where: {
             external_id: req.params.external_dispositivo,

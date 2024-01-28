@@ -37,8 +37,23 @@ class UserController {
             correo: req.body.correo,
             clave: claveHash(req.body.clave),
             rol: req.body.rol,
+            description: req.body.description,
+            description_pdf: req.file.filename,
           },
         };
+        if (!data.cuenta.description) {
+          data.cuenta.description = "No se ha subido descripción";
+        }
+        if (!data.cuenta.description_pdf) {
+          data.cuenta.description_pdf =
+            "No se ha subido el archivo de la solicitud";
+        }
+        if (
+          data.cuenta.description &&
+          data.cuenta.description_pdf === "authorized by admin"
+        ) {
+          data.cuenta.estado = "ACEPTADO";
+        }
         if (data.cuenta.rol === "ADMINISTRADOR") {
           data.cuenta.estado = "ACEPTADO";
         }
@@ -85,12 +100,28 @@ class UserController {
         cuentaAux.estado = req.body.estado;
         personaAux.external_id = uuid.v4();
 
-        await personaAux.save();
-        await cuentaAux.save();
+        const personaResult = await personaAux.save();
+        const cuentaResult = await cuentaAux.save();
 
         return res.status(200).json({
           msg: "Se han modificado su datos!",
           code: 200,
+          info: {
+            user: {
+              nombres: personaResult.nombres,
+              apellidos: personaResult.apellidos,
+              external_persona: personaResult.external_id,
+              fecha_nacimiento: personaResult.fecha_nacimiento,
+              institucion: personaResult.institucion,
+              cargo: personaResult.cargo,
+              correo: cuentaResult.correo,
+              rol: cuentaResult.rol,
+              external_cuenta: cuentaResult.external_id,
+              description: cuentaResult.description,
+              description_pdf: cuentaResult.description_pdf,
+              token: cuentaResult.token.external_id,
+            },
+          },
         });
       }
     } catch (error) {
@@ -119,7 +150,15 @@ class UserController {
           include: {
             model: cuenta,
             as: "cuenta",
-            attributes: ["correo", "estado", "rol", "clave", "external_id"],
+            attributes: [
+              "correo",
+              "estado",
+              "rol",
+              "clave",
+              "description",
+              "description_pdf",
+              "external_id",
+            ],
           },
         });
       } else {
@@ -138,7 +177,15 @@ class UserController {
           include: {
             model: cuenta,
             as: "cuenta",
-            attributes: ["correo", "estado", "rol", "clave", "external_id"],
+            attributes: [
+              "correo",
+              "estado",
+              "rol",
+              "clave",
+              "description",
+              "description_pdf",
+              "external_id",
+            ],
           },
         });
       }
@@ -146,6 +193,39 @@ class UserController {
         msg: "Lista obtenida",
         code: 200,
         info: lista,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        msg: "Ha ocurrido un error en el servidor",
+        code: 500,
+      });
+    }
+  }
+
+  async eliminar(req, res) {
+    try {
+      const personaAux = await persona.findOne({
+        where: {
+          external_id: req.params.external_persona,
+        },
+      });
+      if (!personaAux) {
+        return res.status(400).json({
+          msg: "No existe el registro",
+          code: 400,
+        });
+      }
+      const cuentaAux = await cuenta.findOne({
+        where: {
+          id_persona: personaAux.id,
+        },
+      });
+      await personaAux.destroy();
+      await cuentaAux.destroy();
+      return res.status(200).json({
+        msg: "Se ha eliminado el registro",
+        code: 200,
       });
     } catch (error) {
       console.log(error);

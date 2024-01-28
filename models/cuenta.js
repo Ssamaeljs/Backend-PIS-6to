@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM("ADMINISTRADOR", "USUARIO"),
         defaultValue: "USUARIO",
       },
+      description: { type: DataTypes.STRING(100), allowNull: false },
+      description_pdf: { type: DataTypes.STRING(200), allowNull: false },
       estado: {
         type: DataTypes.ENUM("ACEPTADO", "EN ESPERA", "RECHAZADO"),
         defaultValue: "EN ESPERA",

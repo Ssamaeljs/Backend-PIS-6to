@@ -1,6 +1,7 @@
 //Modelos
 var models = require("../models");
 const cuenta = models.cuenta;
+const peticion_token = models.peticion_token;
 const persona = models.persona;
 //Librerias
 const bcrypt = require("bcrypt");
@@ -18,6 +19,10 @@ class CuentaController {
             model: persona,
             as: "persona",
           },
+          {
+            model: peticion_token,
+            as: "peticion_token",
+          },
         ],
       });
 
@@ -26,7 +31,6 @@ class CuentaController {
           msg: "Cuenta no encontrada",
           code: 400,
         });
-
       var esClaveValida = function (clave, claveUser) {
         return bcrypt.compareSync(claveUser, clave);
       };
@@ -48,7 +52,12 @@ class CuentaController {
       const token = jwt.sign(tokenData, llave, {
         expiresIn: "2h",
       });
-
+      var tokenAux;
+      if (!cuentaAux.peticion_token) {
+        tokenAux = "token no asignado";
+      } else {
+        tokenAux = cuentaAux.peticion_token.external_id;
+      }
       return res.status(200).json({
         msg: "Bienvenido " + cuentaAux.persona.nombres,
         info: {
@@ -59,7 +68,10 @@ class CuentaController {
             external_persona: cuentaAux.persona.external_id,
             fecha_nacimiento: cuentaAux.persona.fecha_nacimiento,
             institucion: cuentaAux.persona.institucion,
+            description: cuentaAux.description,
+            description_pdf: cuentaAux.description_pdf,
             cargo: cuentaAux.persona.cargo,
+            token: tokenAux,
             correo: cuentaAux.correo,
             rol: cuentaAux.rol,
             external_cuenta: cuentaAux.external_id,
