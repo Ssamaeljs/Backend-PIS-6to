@@ -4,7 +4,7 @@ const TokenController = require("../controls/TokenController");
 const DeviceController = require("../controls/DispositivoController");
 const MedicionController = require("../controls/MedicionController");
 const DispositivoController = require("../controls/DispositivoController");
-
+const API_DeviceController = require("../controls/API_DeviceController");
 class Services {
   post(req, res, model) {
     switch (model) {
@@ -73,6 +73,21 @@ class Services {
       case "peticion_token":
         TokenController.guardar(req, res);
         break;
+      case "gpt":
+        break;
+      default:
+        break;
+    }
+  }
+  get_without_token(req, res, model) {
+    switch (model) {
+      case "api_dispositivo":
+        API_DeviceController.listar(req, res);
+        break;
+      case "dispositivo":
+        DeviceController.listar(req, res);
+        break;
+
       default:
         break;
     }

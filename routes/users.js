@@ -29,7 +29,7 @@ apiConfig.forEach((route) => {
       models.forEach((model) => {
         model.urls.forEach((url) => {
           router.get(url, (req, res) => {
-            userService.get(req, res, model.model);
+            userService.get_without_token(req, res, model.model);
           });
         });
       });

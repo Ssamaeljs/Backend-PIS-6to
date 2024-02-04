@@ -113,6 +113,12 @@
       {
         "model": "peticion_token",
         "urls": []
+      },
+      {
+        "model": "api_dispositivo",
+        "urls": [
+          "/listar/api_dispositivo"
+        ]
       }
     ]
   },
