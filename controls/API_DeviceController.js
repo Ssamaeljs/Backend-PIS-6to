@@ -1,37 +1,9 @@
 const URL_API = "https://computacion.unl.edu.ec/uv/api/";
-const axios = require("axios");
+const dispositivos_api = require("./utilities/device_api");
 class API_DeviceController {
   async listar(req, res) {
     try {
-      var dispositivos;
-      await fetch(`${URL_API}listar`).then((info) =>
-        info.json().then((data) => {
-          dispositivos = data.dispositivos;
-        })
-      );
-      var mediciones;
-      await fetch(`${URL_API}medicionDispositivos`).then((info) =>
-        info.json().then((data) => {
-          mediciones = data.ultimasMediciones;
-        })
-      );
-      dispositivos = dispositivos.map((device) => {
-        const deviceMedicion = mediciones.find(
-          (medicion) => medicion.nombre === device.nombre
-        );
-        if (deviceMedicion) {
-          device.medicion = deviceMedicion.medicions;
-        } else {
-          device.medicion = [
-            {
-              uv: 0,
-              fecha: "No hay mediciones",
-            },
-          ];
-        }
-        return device;
-      });
-
+      var dispositivos = await dispositivos_api();
       return res.status(200).json({
         msg: "Dispositivos",
         code: 200,

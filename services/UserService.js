@@ -5,6 +5,8 @@ const DeviceController = require("../controls/DispositivoController");
 const MedicionController = require("../controls/MedicionController");
 const DispositivoController = require("../controls/DispositivoController");
 const API_DeviceController = require("../controls/API_DeviceController");
+const GPTController = require("../controls/GPTController");
+
 class Services {
   post(req, res, model) {
     switch (model) {
@@ -74,7 +76,7 @@ class Services {
         TokenController.guardar(req, res);
         break;
       case "gpt":
-        break;
+        GPTController.mensaje(req, res);
       default:
         break;
     }
