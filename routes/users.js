@@ -61,6 +61,15 @@ apiConfig.forEach((route) => {
         });
       });
       break;
+    case "post_url":
+      models.forEach((model) => {
+        model.urls.forEach((url) => {
+          router.post(url, authenticateToken, authorize, (req, res) => {
+            userService.post(req, res, model.model);
+          });
+        });
+      });
+      break;
     default:
       break;
   }

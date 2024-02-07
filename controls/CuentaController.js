@@ -87,5 +87,29 @@ class CuentaController {
       });
     }
   }
+
+  async acceso(req, res) {
+    if (req.params.isAdmin) {
+      return res.status(200).json({
+        msg: "Admin autorizado",
+        code: 200,
+      });
+    }
+    const token = await peticion_token.findOne({
+      where: {
+        external_id: req.body["api-key"],
+      },
+    });
+    if (!token || !token.habilitado) {
+      return res.status(401).json({
+        msg: "La llave no es válida o no esta habilitada",
+        code: 401,
+      });
+    }
+    return res.status(200).json({
+      msg: "Acceso Autorizado",
+      code: 200,
+    });
+  }
 }
 module.exports = new CuentaController();

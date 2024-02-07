@@ -42,28 +42,18 @@ const authenticateToken = (req, res, next) => {
 };
 
 const authorize = (req, res, next) => {
-  const api_key = req.headers["api-key"];
-  if (!api_key) {
-    return res.status(401).json({
-      msg: "Api key no proporcionado.",
-      code: 401,
-    });
-  }
-  return async (req, res, next) => {
-    const token = await peticion_token.findOne({
-      where: {
-        external_id: api_key,
-      },
-    });
-    if (!token || !token.habilitado) {
+  const api_key = req.body["api-key"];
+  if (req.params.isAdmin) {
+    next();
+  } else {
+    if (!api_key) {
       return res.status(401).json({
-        msg: "Api key no válido o no habilitado",
+        msg: "Api key no proporcionado.",
         code: 401,
       });
     }
-    req.decoded = decoded;
     next();
-  };
+  }
 };
 
 module.exports = {

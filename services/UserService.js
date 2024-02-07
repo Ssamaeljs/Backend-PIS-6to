@@ -14,6 +14,7 @@ class Services {
         UserController.guardar(req, res);
         break;
       case "cuenta":
+        CuentaController.acceso(req, res);
         break;
       case "dispositivo":
         DeviceController.guardar(req, res);

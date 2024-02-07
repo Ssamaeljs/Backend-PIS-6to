@@ -5,7 +5,12 @@ class GPTController {
   async mensaje(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     var dispositivos_info = await dispositivos_api();
-    dispositivos_info = JSON.stringify(dispositivos_info);
+    if (dispositivos_info) {
+      dispositivos_info = JSON.stringify(dispositivos_info);
+    } else {
+      dispositivos_info =
+        "No se pudo obtener la información de los dispositivos.";
+    }
     var username = req.body.username;
     const openai = new OpenAI({ apiKey: apiKey });
     const systemInstructions = `
@@ -42,7 +47,7 @@ class GPTController {
     `;
     const data = {
       model: "gpt-3.5-turbo",
-      max_tokens: 50,
+      max_tokens: 150,
       messages: [
         {
           role: "system",

@@ -22,7 +22,7 @@ const dispositivos_api = async () => {
         device.medicion = [
           {
             uv: 0,
-            fecha: "No hay mediciones",
+            fecha: new Date().toISOString(),
           },
         ];
       }

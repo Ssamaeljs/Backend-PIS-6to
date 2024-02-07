@@ -1,4 +1,3 @@
-const URL_API = "https://computacion.unl.edu.ec/uv/api/";
 const dispositivos_api = require("./utilities/device_api");
 class API_DeviceController {
   async listar(req, res) {
@@ -10,7 +9,6 @@ class API_DeviceController {
         info: dispositivos,
       });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({
         msg: "Ha ocurrido un error en el servidor",
         code: 500,

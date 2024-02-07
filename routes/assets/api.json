@@ -138,5 +138,17 @@
         ]
       }
     ]
+  },
+  {
+    "type": "post_url",
+    "models": [
+      {
+        "model": "cuenta",
+        "urls": [
+          "/redirigir/api",
+          "/redirigir/api/:isAdmin"
+        ]
+      }
+    ]
   }
 ]
