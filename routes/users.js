@@ -12,19 +12,6 @@ const subirSolicitud = crearMiddlewareCarga("solicitudes");
 apiConfig.forEach((route) => {
   const { type, models } = route;
   switch (type) {
-    case "post_without_token":
-      models.forEach((model) => {
-        model.urls.forEach((url) => {
-          router.post(
-            url,
-            subirSolicitud.single("description_pdf"),
-            (req, res) => {
-              userService.post_without_token(req, res, model.model);
-            }
-          );
-        });
-      });
-      break;
     case "get_without_token":
       models.forEach((model) => {
         model.urls.forEach((url) => {
@@ -52,12 +39,16 @@ apiConfig.forEach((route) => {
         });
       });
       break;
-    case "delete":
+    case "post_without_token":
       models.forEach((model) => {
         model.urls.forEach((url) => {
-          router.delete(url, authenticateToken, (req, res) => {
-            userService.delete(req, res, model.model);
-          });
+          router.post(
+            url,
+            subirSolicitud.single("description_pdf"),
+            (req, res) => {
+              userService.post_without_token(req, res, model.model);
+            }
+          );
         });
       });
       break;
@@ -66,6 +57,15 @@ apiConfig.forEach((route) => {
         model.urls.forEach((url) => {
           router.post(url, authenticateToken, authorize, (req, res) => {
             userService.post(req, res, model.model);
+          });
+        });
+      });
+      break;
+    case "delete":
+      models.forEach((model) => {
+        model.urls.forEach((url) => {
+          router.delete(url, authenticateToken, (req, res) => {
+            userService.delete(req, res, model.model);
           });
         });
       });

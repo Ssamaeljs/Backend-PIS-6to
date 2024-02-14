@@ -30,7 +30,7 @@ class GPTController {
       
       6. Puedes ofrecer información sobre el dispositivo con la mayor o menor medición. Si todas son iguales, indícalo.
       
-      7. Puedes proporcionar el promedio de las mediciones de todos los dispositivos (excluyendo los que su medición uv es igual a 0 o los que estan apagados).
+      7. Puedes proporcionar el promedio de las mediciones de todos los dispositivos, se encuentra en el json.
 
       8. Informa si los dispositivos están encendidos o apagados, según su estado (true o false).
       

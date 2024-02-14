@@ -104,7 +104,12 @@ class UserController {
 
         const personaResult = await personaAux.save();
         const cuentaResult = await cuentaAux.save();
-
+        var tokenResult;
+        if (cuentaResult.token) {
+          tokenResult = cuentaResult.token.external_id;
+        } else {
+          tokenResult = "token no asignado";
+        }
         return res.status(200).json({
           msg: "Se han modificado su datos!",
           code: 200,
@@ -121,7 +126,7 @@ class UserController {
               external_cuenta: cuentaResult.external_id,
               description: cuentaResult.description,
               description_pdf: cuentaResult.description_pdf,
-              token: cuentaResult.token.external_id,
+              token: tokenResult,
             },
           },
         });

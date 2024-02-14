@@ -1,4 +1,5 @@
 const URL_API = "https://computacion.unl.edu.ec/uv/api/";
+const categorias = require("./colorValues.json");
 
 const dispositivos_api = async () => {
   try {
@@ -12,6 +13,10 @@ const dispositivos_api = async () => {
     const data2 = await medicionesResponse.json();
     mediciones = data2.ultimasMediciones;
 
+    var promedio;
+    const promedioMediciones = await fetch(`${URL_API}medicionPromedio`);
+    const data3 = await promedioMediciones.json();
+    promedio = data3.promedioUltimasMediciones.promedio.toFixed(2);
     dispositivos = dispositivos.map((device) => {
       const deviceMedicion = mediciones.find(
         (medicion) => medicion.nombre === device.nombre
@@ -28,7 +33,11 @@ const dispositivos_api = async () => {
       }
       return device;
     });
-    return dispositivos;
+    return {
+      dispositivos,
+      promedio,
+      categorias,
+    };
   } catch (error) {
     console.log(error);
     throw error;
